@@ -6,7 +6,7 @@
 \usage{
 makeOxygen(obj, add_default = TRUE,
   add_fields = sinew_opts$get("add_fields"), use_dictionary = NULL,
-  print = TRUE, ...)
+  print = TRUE, style = c("explicit", "implicit"), ...)
 }
 \arguments{
 \item{obj}{function or name of function}
@@ -18,6 +18,8 @@ makeOxygen(obj, add_default = TRUE,
 \item{use_dictionary}{character, path_to_dictionary, Default: NULL}
 
 \item{print}{boolean print output to console, Default: TRUE}
+
+\item{style}{whether \code{@title} and \code{@description} tags are displayed explicitly or implicitly, Default: "explicit"}
 
 \item{...}{arguments to be passed to makeImport}
 }
