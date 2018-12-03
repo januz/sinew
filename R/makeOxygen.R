@@ -5,6 +5,7 @@
 #' @param add_fields character vector to add additional roxygen2 fields, Default: c("details","examples","seealso","rdname","export")
 #' @param use_dictionary character, path_to_dictionary, Default: NULL
 #' @param print boolean print output to console, Default: TRUE
+#' @param style whether \code{@title} and \code{@description} tags are displayed explicitly or implicitly, Default: "explicit"
 #' @param ... arguments to be passed to makeImport
 #' @details add_fields can include any slot except for the defaults (title,description,param,return).
 #' The order in add_fields determines the order of printout. The roxygen2 fields to add are list below,
@@ -42,7 +43,7 @@
 #' @export
 #' @examples
 #' makeOxygen(stats::lm)
-makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fields"), use_dictionary=NULL, print=TRUE, ...) {
+makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fields"), use_dictionary=NULL, print=TRUE, style = c("explicit", "implicit"), ...) {
   header_add <- sinew_opts$get()
 
   lbl <- deparse(substitute(obj))
@@ -123,10 +124,17 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
     })
     params <- sprintf("#' @param %s %s", names(out), out)
 
-    header <- c(
-      title = "#' @title FUNCTION_TITLE",
-      description = "#' @description FUNCTION_DESCRIPTION"
-    )
+    if(style == "explicit"){
+      header <- c(
+        title = "#' @title FUNCTION_TITLE",
+        description = "#' @description FUNCTION_DESCRIPTION"
+      )
+    } else {
+      header <- c(
+        title = "#' FUNCTION_TITLE", "#'",
+        description = "#' FUNCTION_DESCRIPTION", "#'"
+      )
+    }
 
     footer <- c(return = "#' @return OUTPUT_DESCRIPTION")
 
