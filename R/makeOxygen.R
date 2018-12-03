@@ -64,7 +64,7 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
     )
 
     add_fields <- setdiff(add_fields,c('export','examples','seealso','rdname'))
-    
+
     ret <- sprintf(
       "%s\n%s\n%s%s",
       paste(header, collapse = "\n"),
@@ -124,6 +124,7 @@ makeOxygen <- function(obj, add_default=TRUE, add_fields=sinew_opts$get("add_fie
     })
     params <- sprintf("#' @param %s %s", names(out), out)
 
+    style <- match.arg(style)
     if(style == "explicit"){
       header <- c(
         title = "#' @title FUNCTION_TITLE",
